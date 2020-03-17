@@ -1,8 +1,11 @@
+#------------------------------------------------------------------------------
+#                           Saving best model
+#------------------------------------------------------------------------------
+
 import tensorflow as tf
 from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Dense, Dropout, Activation, Flatten, Conv2D, MaxPooling2D
 from tensorflow.keras.callbacks import TensorBoard
-
 import pickle
 import numpy as np
 import time
@@ -14,11 +17,15 @@ y = pickle.load(open("y.pickle","rb"))
 X = tf.keras.utils.normalize(X, axis=1)
 y = np.array(y)
 
+dense_layers = [0]
+layer_sizes = [64]
+conv_layers = [3]
+
 for dense_layer in dense_layers:
     for layer_size in layer_sizes:
         for conv_layer in conv_layers:
             NAME = "{}--conv-{}-nodes-{}-dense-{}".format(conv_layer, layer_size, dense_layer, int(time.time()))
-            tensorboard = TensorBoard(log_dir='logs\{}'.format(NAME)) # tensorboard --logdir=logs  shows tenderboard
+            tensorboard = TensorBoard(log_dir='logs\{}'.format(NAME)) # 'tensorboard --logdir=logs'  shows tensorboard
             print(NAME)
 
             model = Sequential()
@@ -45,4 +52,6 @@ for dense_layer in dense_layers:
                         optimizer='adam',
                         metrics=['accuracy'])
 
-            model.fit(X, y, batch_size=32, epochs=20, validation_split=0.1, callbacks=[tensorboard])
+            model.fit(X, y, batch_size=32, epochs=10, validation_split=0.3, callbacks=[tensorboard])
+
+model.save('64x3-CNN.model')
