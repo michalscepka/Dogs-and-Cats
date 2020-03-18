@@ -17,13 +17,14 @@ y = pickle.load(open("y.pickle","rb"))
 X = tf.keras.utils.normalize(X, axis=1)
 y = np.array(y)
 
-dense_layers = [0]
-layer_sizes = [64]
+# 3--conv-32-nodes-0-dense
 conv_layers = [3]
+layer_sizes = [32]
+dense_layers = [1]
 
-for dense_layer in dense_layers:
+for conv_layer in conv_layers:
     for layer_size in layer_sizes:
-        for conv_layer in conv_layers:
+        for dense_layer in dense_layers:
             NAME = "{}--conv-{}-nodes-{}-dense-{}".format(conv_layer, layer_size, dense_layer, int(time.time()))
             tensorboard = TensorBoard(log_dir='logs\{}'.format(NAME)) # 'tensorboard --logdir=logs'  shows tensorboard
             print(NAME)
@@ -52,6 +53,6 @@ for dense_layer in dense_layers:
                         optimizer='adam',
                         metrics=['accuracy'])
 
-            model.fit(X, y, batch_size=32, epochs=10, validation_split=0.3, callbacks=[tensorboard])
+            model.fit(X, y, batch_size=32, epochs=13, validation_split=0.3, callbacks=[tensorboard])
 
-model.save('64x3-CNN.model')
+model.save('3x32x0-CNN.model')
