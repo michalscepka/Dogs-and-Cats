@@ -1,1 +1,3 @@
-# dogs_and_cats
+# Dogs and cats recognition
+
+Object recognition with Tensorflow
