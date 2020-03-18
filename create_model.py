@@ -19,8 +19,8 @@ y = np.array(y)
 
 # 3--conv-32-nodes-0-dense
 conv_layers = [3]
-layer_sizes = [32]
-dense_layers = [1]
+layer_sizes = [64]
+dense_layers = [0]
 
 for conv_layer in conv_layers:
     for layer_size in layer_sizes:
@@ -53,6 +53,6 @@ for conv_layer in conv_layers:
                         optimizer='adam',
                         metrics=['accuracy'])
 
-            model.fit(X, y, batch_size=32, epochs=13, validation_split=0.3, callbacks=[tensorboard])
+            model.fit(X, y, batch_size=32, epochs=10, validation_split=0.1, callbacks=[tensorboard])
 
-model.save('3x32x0-CNN.model')
+model.save('3x64x0-CNN-75.model')

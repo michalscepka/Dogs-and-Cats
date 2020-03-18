@@ -48,8 +48,6 @@ for conv_layer in conv_layers:
             model.add(Dense(1))
             model.add(Activation('sigmoid'))
 
-            model.compile(loss='binary_crossentropy',
-                        optimizer='adam',
-                        metrics=['accuracy'])
+            model.compile(loss='binary_crossentropy', optimizer='adam', metrics=['accuracy'])
 
             model.fit(X, y, batch_size=32, epochs=20, validation_split=0.3, callbacks=[tensorboard])

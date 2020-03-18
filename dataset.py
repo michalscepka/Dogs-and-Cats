@@ -12,7 +12,7 @@ import pickle
 DATADIR = "D:/Datasets/PetImages"
 CATEGORIES = ["Dog", "Cat"]
 
-IMG_SIZE = 100
+IMG_SIZE = 75
 training_data = []
 
 def create_training_data():
@@ -26,8 +26,8 @@ def create_training_data():
                 img_array = cv2.imread(os.path.join(path, img), cv2.IMREAD_GRAYSCALE)  # convert to array
                 new_array = cv2.resize(img_array, (IMG_SIZE, IMG_SIZE))  # resize to normalize data size
                 training_data.append([new_array, class_num])  # add this to our training_data
-                plt.imshow(img_array, cmap="gray")
-                plt.show()
+                #plt.imshow(img_array, cmap="gray")
+                #plt.show()
             except Exception as e:  # in the interest in keeping the output clean...
                 pass
 
@@ -36,8 +36,8 @@ print(len(training_data))
 random.shuffle(training_data)
 
 # check that data are shuffled
-'''for sample in training_data[:10]:
-    print(sample[1])'''
+for sample in training_data[:10]:
+    print(sample[1])
 
 # pack data into variables
 X = []
